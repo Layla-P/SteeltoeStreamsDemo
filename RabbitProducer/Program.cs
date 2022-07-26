@@ -1,17 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitProducer;
-using Steeltoe.Messaging.Core;
-using Steeltoe.Messaging;
-using Steeltoe.Stream.Binding;
 using Steeltoe.Stream.StreamHost;
-using Microsoft.Extensions.Configuration;
-using Steeltoe.Common.Hosting;
-using Steeltoe.Extensions.Configuration.CloudFoundry;
+
+//PRODUCER
 
 var builder = StreamHost
-              .CreateDefaultBuilder<TransformProcessor>(args)
-              .ConfigureServices(svc => svc.AddSingleton<IVotingService, DefaultVotingService>());
+              .CreateDefaultBuilder<MessageSender>(args)
+              .ConfigureServices(svc => svc.AddSingleton<IProducerVotingService, DefaultVotingService>());
+
 
 var host = builder.Build();
 
@@ -19,8 +16,13 @@ await host.StartAsync();
 
 var sp = host.Services;
 
-var vs = sp.GetRequiredService<IVotingService>();
+var vs = sp.GetRequiredService<IProducerVotingService>();
 
-var choice = Console.ReadLine();
-
-vs.Record(new Vote { Choice = choice });
+do
+{
+    Console.WriteLine("Who do you vote for? ");
+    var choice = Console.ReadLine();
+    var response = vs.Record(new Vote { Choice = choice ?? "default" });
+    Console.WriteLine($"Your choice was {response.ToString()}");
+}
+while (true);

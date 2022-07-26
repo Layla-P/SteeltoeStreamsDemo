@@ -9,11 +9,14 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.0" />
-		<PackageReference Include="Steeltoe.Stream.StreamBase" Version="3.2.0" />
 		<PackageReference Include="Steeltoe.Common.Hosting" Version="3.2.0" />
 		<PackageReference Include="Steeltoe.Connector.CloudFoundry" Version="3.2.0" />
+		<PackageReference Include="Steeltoe.Connector.ConnectorBase" Version="3.2.0" />
+		<PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="3.2.0" />
 		<PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.2.0" />
+		<PackageReference Include="Steeltoe.Management.CloudFoundryCore" Version="3.2.0" />
+		<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.0" />
+		<PackageReference Include="Steeltoe.Stream.StreamBase" Version="3.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,17 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
-
 using Steeltoe.Stream.Attributes;
 using Steeltoe.Stream.Messaging;
 
 
 namespace RabbitBinderExample;
 
-public interface IVotingService
+public interface IConsumerVotingService
 {
     void Record(Vote vote);
 }
 
-public class DefaultVotingService : IVotingService
+public class DefaultVotingService : IConsumerVotingService
 {
     private readonly ILogger<DefaultVotingService> _logger;
 
@@ -32,12 +31,11 @@ public class Vote
     public string Choice { get; set; }
 }
 
-
 [EnableBinding(typeof(ISink))]
 public class VoteHandler
 {
-    private readonly IVotingService votingService;
-    public VoteHandler(IVotingService service)
+    private readonly IConsumerVotingService votingService;
+    public VoteHandler(IConsumerVotingService service)
     {
         votingService = service;
     }
